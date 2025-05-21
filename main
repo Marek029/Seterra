@@ -1,23 +1,28 @@
 import pygame
 import sys
 import time
-import 
 
 # Initialize pygame
 pygame.init()
 
-velikost = [1200, 800]
+velikost = [1000, 800] #delka obrazovky, výška obrazovky
 pomer = velikost[0] / velikost[1]
 # Set up the display
 screen = pygame.display.set_mode((velikost[0], velikost[1]))  # Screen size: 800x600
 pygame.display.set_caption('sigma doppler')
 
 # Load the image (make sure the image is in the same folder as the script or provide the full path)
-path = "C:\\Users\\sovjakm\\Downloads\\"
+path = "C:\\Users\\marek\\Downloads\\"
 image = pygame.image.load(f'{path}Blank_Map-Africa.svg').convert_alpha()  # Replace 'obrazek.jpg' with your image file name
-af_proportions = image.get_height() / image.get_width()
-if image.get_width() > image.get_height(): 
-    image = pygame.transform.scale(image, (velikost[0], velikost[1])) #nedodelano
+af_proportions = image.get_width() / image.get_height()
+if af_proportions > pomer: 
+    image = pygame.transform.scale(image, (velikost[0], velikost[0]/af_proportions))
+
+elif af_proportions == pomer:
+    image = pygame.transform.scale(image, (velikost[0], velikost[1]))
+
+else:
+    image = pygame.transform.scale(image, (velikost[1]*af_proportions, velikost[1])) 
 
 # Main game loop
 running = True
@@ -27,15 +32,17 @@ while running:
         if event.type == pygame.QUIT:
             running = False
 
-    timeee = time.time()
+    time_stamp = time.time()
 
     # Normalize timeee to fit within the 0-255 range for colors
-    color_value = int((timeee % 255))  # Wrap around the time value to stay within range
+    color_value = int(abs(((time_stamp*10) % 510)-255))  # Wrap around the time value to stay within range
 
     # Fill the screen with a color (optional)
     screen.fill((200, 255, color_value))  # White background with time-dependent blue channel
 
     # Display the image at a specified position (x=0, y=100 for top-left corner)
+    image_rect = image.get_rect()
+    image_rect.center = (velikost[0]/2,velikost[1]/2)
     screen.blit(image, (0, 0))
 
     # Update the screen
