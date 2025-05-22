@@ -2,6 +2,21 @@ import pygame
 import sys
 import time
 
+path = "Moje soubory/Soubory systému Linux/Seterra/"
+
+def scaling(image, af_proportions, pomer, velikost):
+    
+    if af_proportions > pomer: 
+        imagee = pygame.transform.scale(image, (velikost[0], velikost[0]/af_proportions))
+
+    elif af_proportions == pomer:
+        imagee = pygame.transform.scale(image, (velikost[0], velikost[1]))
+
+    else:
+        imagee = pygame.transform.scale(image, (velikost[1]*af_proportions, velikost[1])) 
+
+    return imagee
+
 # Initialize pygame
 pygame.init()
 
@@ -11,19 +26,25 @@ pomer = velikost[0] / velikost[1]
 screen = pygame.display.set_mode((velikost[0], velikost[1]))  # Screen size: 800x600
 pygame.display.set_caption('sigma doppler')
 
+continents = []
+continents_prop = []
+continents_name = ["South-america.svg", "North-america.svg", "Oceania.png", "Asia.png", "Europe.jpeg", "Africa.svg"]
 # Load the image (make sure the image is in the same folder as the script or provide the full path)
-path = "C:\\Users\\marek\\Downloads\\"
-image = pygame.image.load(f'{path}Blank_Map-Africa.svg').convert_alpha()  # Replace 'obrazek.jpg' with your image file name
-af_proportions = image.get_width() / image.get_height()
-if af_proportions > pomer: 
-    image = pygame.transform.scale(image, (velikost[0], velikost[0]/af_proportions))
+pathh = f"{path}continents/"
+for i in range(len(continents_name)):
+    continents.append(pygame.image.load(f'{pathh}{continents_name[i]}').convert_alpha()) 
+    continents_prop.append(continents[i].get_width() / continents[i].get_height())
+    continents[i]=scaling(continents[i], continents_prop[i], pomer, velikost)
 
-elif af_proportions == pomer:
-    image = pygame.transform.scale(image, (velikost[0], velikost[1]))
+game_state = 1 
+#1 - kontinety, výběr státu
+#2 - vlajky - výběr vlajky státu
+#3 - provincie státu (jen u vybraných)
+#4 - vlajky provincií (jen u vybraných)
+#5 - města
+country = 0 #aktuálně hádaná země
 
-else:
-    image = pygame.transform.scale(image, (velikost[1]*af_proportions, velikost[1])) 
-
+displayed_continent = 0
 # Main game loop
 running = True
 while running:
@@ -31,6 +52,12 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+        
+        if event.type == pygame.KEYDOWN:
+            if game_state == 1:
+                if event.key == pygame.K_LEFT: displayed_continent -= 1
+                if event.key == pygame.K_RIGHT: displayed_continent += 1
+                displayed_continent = displayed_continent % 6
 
     time_stamp = time.time()
 
@@ -41,9 +68,10 @@ while running:
     screen.fill((200, 255, color_value))  # White background with time-dependent blue channel
 
     # Display the image at a specified position (x=0, y=100 for top-left corner)
-    image_rect = image.get_rect()
-    image_rect.center = (velikost[0]/2,velikost[1]/2)
-    screen.blit(image, (0, 0))
+    if game_state == 1:
+        image_rect = continents[displayed_continent].get_rect()
+        image_rect.center = (velikost[0]/2,velikost[1]/2)
+        screen.blit(continents[displayed_continent], (0, 0))
 
     # Update the screen
     pygame.display.flip()
