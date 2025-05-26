@@ -292,7 +292,7 @@ def scaling(image, af_proportions, pomer, velikost):
 
 
 
-Sizes_NA = [83.0337814, 14.53144]
+#Sizes_NA = [83.0337814, 14.53144]
 
 # Initialize pygame
 pygame.init()
