@@ -304,6 +304,8 @@ def scaling(image, af_proportions, pomer, velikost):
 # Initialize pygame
 pygame.init()
 
+tecka = pygame.image.load(f'{path}dot.jpg').convert_alpha()
+
 velikost = [1000, 800] #delka obrazovky, výška obrazovky
 pomer = velikost[0] / velikost[1]
 width = velikost[0]
@@ -367,7 +369,7 @@ while running:
         screen.blit(continents[displayed_continent], (0, 0))
 
         for i in countries_coordinates[displayed_continent]:
-            screen.blit(f"{path}tecka.jpg", (i[1], i[2]))
+            screen.blit(tecka, (i[1], i[2]))
 
         if mys == True:
             kliknuto = -1
