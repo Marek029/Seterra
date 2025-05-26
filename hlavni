@@ -276,7 +276,7 @@ countries_coordinates = [
     ("United States", 560, 533),
     ("Canada", 529, 351),
     ("Mexico", 541, 724)
-]
+],
 [# dlasi kontinet
     ("blabla", 560, 533),
     ("ostatni", 529, 351),
@@ -374,7 +374,7 @@ while running:
         if mys == True:
             kliknuto = -1
             for i in countries_coordinates[displayed_continent]:
-                if math.sqrt((abs(mys_pos[0]-i[1]))**2 + (abs(mys_pos[1]-i[2]))**2) < 10
+                if math.sqrt((abs(mys_pos[0]-i[1]))**2 + (abs(mys_pos[1]-i[2]))**2) < 10:
                     kliknuto = i[0]
     # Update the screen
     pygame.display.flip()
