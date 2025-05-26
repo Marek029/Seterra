@@ -268,12 +268,18 @@ countries_coordinates_central_america = [
     
 ]
 
-countries_coordinates_north_america = [
+countries_coordinates = [
+[ #north america
     ("United States", 560, 533),
     ("Canada", 529, 351),
     ("Mexico", 541, 724)
 ]
-
+[# dlasi kontinet
+    ("blabla", 560, 533),
+    ("ostatni", 529, 351),
+    ("neco", 541, 724)
+]
+]
 
 path = "O:\\5.M\\Python\\Seterra-main\\"
 
@@ -307,7 +313,7 @@ pygame.display.set_caption('sigma doppler')
 
 continents = []
 continents_prop = []
-continents_name = ["South-america.svg", "central_america.gif", "North-america.svg", "Oceania.png", "Asia.png", "Europe.jpeg", "Africa.svg"]
+continents_name = [ "North-america.svg", "South-america.svg", "central_america.gif", "Oceania.png", "Asia.png", "Europe.jpeg", "Africa.svg"]
 # Load the image (make sure the image is in the same folder as the script or provide the full path)
 pathh = f"{path}"
 for i in range(len(continents_name)):
@@ -341,6 +347,9 @@ while running:
         if event.type == pygame.MOUSEBUTTONDOWN:
             #if width/2 <= mouse[0] <= width/2+140 and height/2 <= mouse[1] <= height/2+40:
                 print(pygame.mouse.get_pos())
+                mys_pos = pygame.mouse.get_pos()
+                mys = True
+        else: mys == False
 
     time_stamp = time.time()
 
@@ -355,7 +364,8 @@ while running:
         image_rect = continents[displayed_continent].get_rect()
         image_rect.center = (velikost[0]/2,velikost[1]/2)
         screen.blit(continents[displayed_continent], (0, 0))
-
+        for i in countries_coordinates[displayed_continent]:
+            screen.blit(f"{path}tecka.jpg", (i[1], i[2]))
     # Update the screen
     pygame.display.flip()
 
