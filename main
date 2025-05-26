@@ -2,7 +2,280 @@ import pygame
 import sys
 import time
 
-path = "Moje soubory/Soubory systému Linux/Seterra/"
+countries_and_territories = [
+    ("Afghanistan", "Afghánistán"),
+    ("Albania", "Albánie"),
+    ("Algeria", "Alžírsko"),
+    ("Andorra", "Andorra"),
+    ("Angola", "Angola"),
+    ("Antigua and Barbuda", "Antigua a Barbuda"),
+    ("Argentina", "Argentina"),
+    ("Armenia", "Arménie"),
+    ("Australia", "Austrálie"),
+    ("Austria", "Rakousko"),
+    ("Azerbaijan", "Ázerbájdžán"),
+    ("Bahamas", "Bahamy"),
+    ("Bahrain", "Bahrajn"),
+    ("Bangladesh", "Bangladéš"),
+    ("Barbados", "Barbados"),
+    ("Belarus", "Bělorusko"),
+    ("Belgium", "Belgie"),
+    ("Belize", "Belize"),
+    ("Benin", "Benin"),
+    ("Bhutan", "Bhútán"),
+    ("Bolivia", "Bolívie"),
+    ("Bosnia and Herzegovina", "Bosna a Hercegovina"),
+    ("Botswana", "Botswana"),
+    ("Brazil", "Brazílie"),
+    ("Brunei", "Brunej"),
+    ("Bulgaria", "Bulharsko"),
+    ("Burkina Faso", "Burkina Faso"),
+    ("Burundi", "Burundi"),
+    ("Cambodia", "Kambodža"),
+    ("Cameroon", "Kamerun"),
+    ("Canada", "Kanada"),
+    ("Cape Verde", "Kapverdy"),
+    ("Central African Republic", "Středoafrická republika"),
+    ("Chad", "Čad"),
+    ("Chile", "Chile"),
+    ("China", "Čína"),
+    ("Colombia", "Kolumbie"),
+    ("Comoros", "Komory"),
+    ("Congo (Congo-Brazzaville)", "Kongo (Brazzaville)"),
+    ("Congo (Congo-Kinshasa)", "Kongo (Kinshasa)"),
+    ("Costa Rica", "Kostarika"),
+    ("Croatia", "Chorvatsko"),
+    ("Cuba", "Kuba"),
+    ("Cyprus", "Kypr"),
+    ("Czech Republic", "Česká republika"),
+    ("Denmark", "Dánsko"),
+    ("Djibouti", "Džibutsko"),
+    ("Dominica", "Dominika"),
+    ("Dominican Republic", "Dominikánská republika"),
+    ("East Timor (Timor-Leste)", "Východní Timor (Timor-Leste)"),
+    ("Ecuador", "Ekvádor"),
+    ("Egypt", "Egypt"),
+    ("El Salvador", "Salvador"),
+    ("Equatorial Guinea", "Rovníková Guinea"),
+    ("Eritrea", "Eritrea"),
+    ("Estonia", "Estonsko"),
+    ("Eswatini", "Eswatini"),
+    ("Ethiopia", "Etiopie"),
+    ("Fiji", "Fidži"),
+    ("Finland", "Finsko"),
+    ("France", "Francie"),
+    ("Gabon", "Gabon"),
+    ("Gambia", "Gambie"),
+    ("Georgia", "Gruzie"),
+    ("Germany", "Německo"),
+    ("Ghana", "Ghana"),
+    ("Greece", "Řecko"),
+    ("Grenada", "Grenada"),
+    ("Guatemala", "Guatemala"),
+    ("Guinea", "Guinea"),
+    ("Guinea-Bissau", "Guinea-Bisau"),
+    ("Guyana", "Guyana"),
+    ("Haiti", "Haiti"),
+    ("Honduras", "Honduras"),
+    ("Hungary", "Maďarsko"),
+    ("Iceland", "Island"),
+    ("India", "Indie"),
+    ("Indonesia", "Indonésie"),
+    ("Iran", "Írán"),
+    ("Iraq", "Irák"),
+    ("Ireland", "Irsko"),
+    ("Israel", "Izrael"),
+    ("Italy", "Itálie"),
+    ("Ivory Coast", "Pobřeží slonoviny"),
+    ("Jamaica", "Jamajka"),
+    ("Japan", "Japonsko"),
+    ("Jordan", "Jordánsko"),
+    ("Kazakhstan", "Kazachstán"),
+    ("Kenya", "Keňa"),
+    ("Kiribati", "Kiribati"),
+    ("Kosovo", "Kosovo"),
+    ("Kuwait", "Kuvajt"),
+    ("Kyrgyzstan", "Kyrgyzstán"),
+    ("Laos", "Laos"),
+    ("Latvia", "Lotyšsko"),
+    ("Lebanon", "Libanon"),
+    ("Lesotho", "Lesotho"),
+    ("Liberia", "Libérie"),
+    ("Libya", "Libye"),
+    ("Liechtenstein", "Lichtenštejnsko"),
+    ("Lithuania", "Litva"),
+    ("Luxembourg", "Lucembursko"),
+    ("Madagascar", "Madagaskar"),
+    ("Malawi", "Malawi"),
+    ("Malaysia", "Malajsie"),
+    ("Maldives", "Maledivy"),
+    ("Mali", "Mali"),
+    ("Malta", "Malta"),
+    ("Marshall Islands", "Marshallovy ostrovy"),
+    ("Mauritania", "Mauritánie"),
+    ("Mauritius", "Mauricius"),
+    ("Mexico", "Mexiko"),
+    ("Micronesia", "Mikronésie"),
+    ("Moldova", "Moldavsko"),
+    ("Monaco", "Monako"),
+    ("Mongolia", "Mongolsko"),
+    ("Montenegro", "Černá Hora"),
+    ("Morocco", "Maroko"),
+    ("Mozambique", "Mosambik"),
+    ("Myanmar (Burma)", "Myanmar (Barma)"),
+    ("Namibia", "Namibie"),
+    ("Nauru", "Nauru"),
+    ("Nepal", "Nepál"),
+    ("Netherlands", "Nizozemsko"),
+    ("New Zealand", "Nový Zéland"),
+    ("Nicaragua", "Nikaragua"),
+    ("Niger", "Niger"),
+    ("Nigeria", "Nigérie"),
+    ("North Korea", "Severní Korea"),
+    ("North Macedonia", "Severní Makedonie"),
+    ("Norway", "Norsko"),
+    ("Oman", "Omán"),
+    ("Pakistan", "Pákistán"),
+    ("Palau", "Palau"),
+    ("Palestine", "Palestina"),
+    ("Panama", "Panama"),
+    ("Papua New Guinea", "Papua-Nová Guinea"),
+    ("Paraguay", "Paraguay"),
+    ("Peru", "Peru"),
+    ("Philippines", "Filipíny"),
+    ("Poland", "Polsko"),
+    ("Portugal", "Portugalsko"),
+    ("Qatar", "Katar"),
+    ("Romania", "Rumunsko"),
+    ("Russia", "Rusko"),
+    ("Rwanda", "Rwanda"),
+    ("Saint Kitts and Nevis", "Svatý Kryštof a Nevis"),
+    ("Saint Lucia", "Svatá Lucie"),
+    ("Saint Vincent and the Grenadines", "Svatý Vincenc a Grenadiny"),
+    ("Samoa", "Samoa"),
+    ("San Marino", "San Marino"),
+    ("Sao Tome and Principe", "Svatý Tomáš a Princův ostrov"),
+    ("Saudi Arabia", "Saúdská Arábie"),
+    ("Senegal", "Senegal"),
+    ("Serbia", "Srbsko"),
+    ("Seychelles", "Seychely"),
+    ("Sierra Leone", "Sierra Leone"),
+    ("Singapore", "Singapur"),
+    ("Slovakia", "Slovensko"),
+    ("Slovenia", "Slovinsko"),
+    ("Solomon Islands", "Šalamounovy ostrovy"),
+    ("Somalia", "Somálsko"),
+    ("South Africa", "Jihoafrická republika"),
+    ("South Korea", "Jižní Korea"),
+    ("South Sudan", "Jižní Súdán"),
+    ("Spain", "Španělsko"),
+    ("Sri Lanka", "Srí Lanka"),
+    ("Sudan", "Súdán"),
+    ("Suriname", "Surinam"),
+    ("Sweden", "Švédsko"),
+    ("Switzerland", "Švýcarsko"),
+    ("Syria", "Sýrie"),
+    ("Taiwan", "Tchaj-wan"),
+    ("Tajikistan", "Tádžikistán"),
+    ("Tanzania", "Tanzanie"),
+    ("Thailand", "Thajsko"),
+    ("Togo", "Togo"),
+    ("Tonga", "Tonga"),
+    ("Trinidad and Tobago", "Trinidad a Tobago"),
+    ("Tunisia", "Tunisko"),
+    ("Turkey", "Turecko"),
+    ("Turkmenistan", "Turkmenistán"),
+    ("Tuvalu", "Tuvalu"),
+    ("Uganda", "Uganda"),
+    ("Ukraine", "Ukrajina"),
+    ("United Arab Emirates", "Spojené arabské emiráty"),
+    ("United Kingdom", "Spojené království"),
+    ("United States", "Spojené státy"),
+    ("Uruguay", "Uruguay"),
+    ("Uzbekistan", "Uzbekistán"),
+    ("Vanuatu", "Vanuatu"),
+    ("Vatican City", "Vatikán"),
+    ("Venezuela", "Venezuela"),
+    ("Vietnam", "Vietnam"),
+    ("Yemen", "Jemen"),
+    ("Zambia", "Zambie"),
+    ("Zimbabwe", "Zimbabwe"),
+
+    # Nezávislá/okupovaná/závislá území často zahrnovaná v Seterra
+    ("Greenland", "Grónsko"),
+    ("Puerto Rico", "Portoriko"),
+    ("Western Sahara", "Západní Sahara"),
+    ("Hong Kong", "Hongkong"),
+    ("Macau", "Macao"),
+    ("Faroe Islands", "Faerské ostrovy"),
+    ("French Guiana", "Francouzská Guyana"),
+    ("Guadeloupe", "Guadeloupe"),
+    ("Martinique", "Martinik"),
+    ("Réunion", "Réunion"),
+    ("New Caledonia", "Nová Kaledonie"),
+    ("French Polynesia", "Francouzská Polynésie"),
+    ("Gibraltar", "Gibraltar"),
+    ("Bermuda", "Bermudy"),
+    ("Cayman Islands", "Kajmanské ostrovy"),
+    ("Falkland Islands", "Falklandy"),
+    ("British Virgin Islands", "Britské Panenské ostrovy"),
+    ("U.S. Virgin Islands", "Americké Panenské ostrovy"),
+    ("Guam", "Guam"),
+    ("Northern Mariana Islands", "Severní Mariany"),
+    ("American Samoa", "Americká Samoa"),
+    ("Cook Islands", "Cookovy ostrovy"),
+    ("Niue", "Niue"),
+    ("Aruba", "Aruba"),
+    ("Curacao", "Curaçao"),
+    ("Sint Maarten", "Sint Maarten"),
+    ("Bonaire", "Bonaire"),
+    ("Saint Pierre and Miquelon", "Saint-Pierre a Miquelon"),
+    ("Tokelau", "Tokelau"),
+    ("Wallis and Futuna", "Wallis a Futuna"),
+    ("Mayotte", "Mayotte"),
+    ("Saint Helena", "Svatá Helena"),
+    ("Anguilla", "Anguilla"),
+    ("Montserrat", "Montserrat"),
+    ("Turks and Caicos Islands", "Turks a Caicos"),
+    ("British Indian Ocean Territory", "Britské indickooceánské území"),
+    ("Christmas Island", "Vánoční ostrov"),
+    ("Norfolk Island", "Norfolk"),
+    ("Pitcairn Islands", "Pitcairnovy ostrovy")
+]
+
+
+countries_coordinates_central_america = [
+    ("Antigua and Barbuda", 17.0608, -61.7964),
+    ("Bahamas", 25.0343, -77.3963),
+    ("Barbados", 13.1939, -59.5432),
+    
+    ("Costa Rica", 9.7489, -83.7534),
+    ("Cuba", 21.5218, -77.7812),
+    ("Dominica", 15.4148, -61.3700),
+    ("Dominican Republic", 18.7357, -70.1627),
+    ("El Salvador", 13.7942, -88.8965),
+    ("Grenada", 12.2628, -61.6042),
+    ("Guatemala", 15.7835, -90.2308),
+    ("Haiti", 18.9712, -72.2852),
+    ("Honduras", 13.9094, -83.4286),
+    ("Jamaica", 18.1096, -77.2975),
+    ("Nicaragua", 12.8654, -85.2072),
+    ("Panama", ),
+    ("Saint Kitts and Nevis", ),
+    ("Saint Lucia", ),
+    ("Saint Vincent and the Grenadines", ),
+    ("Trinidad and Tobago", ),
+    
+]
+
+countries_coordinates_north_america = [
+    ("United States", 560, 533),
+    ("Canada", 529, 351),
+    ("Mexico", 541, 724)
+]
+
+
+path = "O:\\5.M\\Python\\Seterra-main\\"
 
 def scaling(image, af_proportions, pomer, velikost):
     
@@ -17,20 +290,26 @@ def scaling(image, af_proportions, pomer, velikost):
 
     return imagee
 
+
+
+Sizes_NA = [83.0337814, 14.53144]
+
 # Initialize pygame
 pygame.init()
 
 velikost = [1000, 800] #delka obrazovky, výška obrazovky
 pomer = velikost[0] / velikost[1]
+width = velikost[0]
+height = velikost[1]
 # Set up the display
 screen = pygame.display.set_mode((velikost[0], velikost[1]))  # Screen size: 800x600
 pygame.display.set_caption('sigma doppler')
 
 continents = []
 continents_prop = []
-continents_name = ["South-america.svg", "North-america.svg", "Oceania.png", "Asia.png", "Europe.jpeg", "Africa.svg"]
+continents_name = ["South-america.svg", "central_america.gif", "North-america.svg", "Oceania.png", "Asia.png", "Europe.jpeg", "Africa.svg"]
 # Load the image (make sure the image is in the same folder as the script or provide the full path)
-pathh = f"{path}continents/"
+pathh = f"{path}"
 for i in range(len(continents_name)):
     continents.append(pygame.image.load(f'{pathh}{continents_name[i]}').convert_alpha()) 
     continents_prop.append(continents[i].get_width() / continents[i].get_height())
@@ -58,6 +337,10 @@ while running:
                 if event.key == pygame.K_LEFT: displayed_continent -= 1
                 if event.key == pygame.K_RIGHT: displayed_continent += 1
                 displayed_continent = displayed_continent % 6
+        
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            #if width/2 <= mouse[0] <= width/2+140 and height/2 <= mouse[1] <= height/2+40:
+                print(pygame.mouse.get_pos())
 
     time_stamp = time.time()
 
