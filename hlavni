@@ -364,8 +364,14 @@ while running:
         image_rect = continents[displayed_continent].get_rect()
         image_rect.center = (velikost[0]/2,velikost[1]/2)
         screen.blit(continents[displayed_continent], (0, 0))
+
         for i in countries_coordinates[displayed_continent]:
             screen.blit(f"{path}tecka.jpg", (i[1], i[2]))
+
+        if mys == True:
+            kliknuto = -1
+            for i in countries_coordinates[displayed_continent]:
+                if (abs(mys_pos[0]-))
     # Update the screen
     pygame.display.flip()
 
