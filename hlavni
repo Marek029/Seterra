@@ -1,6 +1,9 @@
 import pygame
 import sys
 import time
+import math
+
+path = "O:\\5.M\\Python\\Seterra-main\\"
 
 countries_and_territories = [
     ("Afghanistan", "Afghánistán"),
@@ -281,8 +284,6 @@ countries_coordinates = [
 ]
 ]
 
-path = "O:\\5.M\\Python\\Seterra-main\\"
-
 def scaling(image, af_proportions, pomer, velikost):
     
     if af_proportions > pomer: 
@@ -371,7 +372,8 @@ while running:
         if mys == True:
             kliknuto = -1
             for i in countries_coordinates[displayed_continent]:
-                if (abs(mys_pos[0]-))
+                if math.sqrt((abs(mys_pos[0]-i[1]))**2 + (abs(mys_pos[1]-i[2]))**2) < 10
+                    kliknuto = i[0]
     # Update the screen
     pygame.display.flip()
 
