@@ -3,7 +3,7 @@ import sys
 import time
 import math
 
-path = "O:\\5.M\\Python\\Seterra-main\\"
+path = "C:\\Users\\marek\\Seterra\\"
 
 countries_and_territories = [
     ("Afghanistan", "Afghánistán"),
@@ -277,7 +277,7 @@ countries_coordinates = [
     ("Canada", 529, 351),
     ("Mexico", 541, 724)
 ],
-[# dlasi kontinet
+[# stredni amerika
     ("blabla", 560, 533),
     ("ostatni", 529, 351),
     ("neco", 541, 724)
@@ -297,14 +297,20 @@ def scaling(image, af_proportions, pomer, velikost):
 
     return imagee
 
-
+def latlon_to_screen(lat, lon, map_bounds, screen_size):
+    min_lat, max_lat, min_lon, max_lon = map_bounds
+    x = (lon - min_lon) / (max_lon - min_lon) * screen_size[0]
+    y = (1 - (lat - min_lat) / (max_lat - min_lat)) * screen_size[1]
+    return int(x), int(y)
+    
 
 #Sizes_NA = [83.0337814, 14.53144]
 
 # Initialize pygame
 pygame.init()
 
-tecka = pygame.image.load(f'{path}dot.jpg').convert_alpha()
+barva_pozadí_typ = 1
+co = 0.5
 
 velikost = [1000, 800] #delka obrazovky, výška obrazovky
 pomer = velikost[0] / velikost[1]
@@ -312,11 +318,16 @@ width = velikost[0]
 height = velikost[1]
 # Set up the display
 screen = pygame.display.set_mode((velikost[0], velikost[1]))  # Screen size: 800x600
-pygame.display.set_caption('sigma doppler')
+pygame.display.set_caption('Seterra ultimate challange')
+
+teckaa = pygame.image.load(f'{path}dot.jpg').convert_alpha()
+tecka = pygame.transform.scale(teckaa, (10, 10))
+
+mys = False
 
 continents = []
 continents_prop = []
-continents_name = [ "North-america.svg", "South-america.svg", "central_america.gif", "Oceania.png", "Asia.png", "Europe.jpeg", "Africa.svg"]
+continents_name = [ "North-america.svg", "central_america.gif", "South-america.svg", "Oceania.png", "Asia.png", "Europe.jpeg", "Africa.svg"]
 # Load the image (make sure the image is in the same folder as the script or provide the full path)
 pathh = f"{path}"
 for i in range(len(continents_name)):
@@ -330,7 +341,7 @@ game_state = 1
 #3 - provincie státu (jen u vybraných)
 #4 - vlajky provincií (jen u vybraných)
 #5 - města
-country = 0 #aktuálně hádaná země
+current_country = 0 #aktuálně hádaná země
 
 displayed_continent = 0
 # Main game loop
@@ -345,31 +356,43 @@ while running:
             if game_state == 1:
                 if event.key == pygame.K_LEFT: displayed_continent -= 1
                 if event.key == pygame.K_RIGHT: displayed_continent += 1
-                displayed_continent = displayed_continent % 6
+                displayed_continent = displayed_continent % len(continents)
         
         if event.type == pygame.MOUSEBUTTONDOWN:
-            #if width/2 <= mouse[0] <= width/2+140 and height/2 <= mouse[1] <= height/2+40:
-                print(pygame.mouse.get_pos())
-                mys_pos = pygame.mouse.get_pos()
-                mys = True
-        else: mys == False
+            
+            print(pygame.mouse.get_pos())
 
+            mys_pos = pygame.mouse.get_pos()
+            mys = True
+        else: mys = False
+
+    
     time_stamp = time.time()
 
-    # Normalize timeee to fit within the 0-255 range for colors
-    color_value = int(abs(((time_stamp*10) % 510)-255))  # Wrap around the time value to stay within range
+    if barva_pozadí_typ == 1:
+        color_value1 = int(abs(((time_stamp* 7*co) % 510)-255))  # Wrap around the time value to stay within range
+        color_value2 = int(abs(((time_stamp*11*co) % 510)-255))
+        color_value3 = int(abs(((time_stamp*13*co) % 510)-255))
+    
+    if barva_pozadí_typ == 2:
+        color_value1 = int(abs(((time_stamp*10*co) % 510)-255))  # Wrap around the time value to stay within range
+        color_value2 = int(abs(((time_stamp*10*co) % 510)-255))
+        color_value3 = int(abs(((time_stamp*10*co) % 510)-255))
 
     # Fill the screen with a color (optional)
-    screen.fill((200, 255, color_value))  # White background with time-dependent blue channel
+    screen.fill((int(color_value1), int(color_value2), int(color_value3)))  # White background with time-dependent blue channel
 
-    # Display the image at a specified position (x=0, y=100 for top-left corner)
     if game_state == 1:
         image_rect = continents[displayed_continent].get_rect()
         image_rect.center = (velikost[0]/2,velikost[1]/2)
         screen.blit(continents[displayed_continent], (0, 0))
 
         for i in countries_coordinates[displayed_continent]:
-            screen.blit(tecka, (i[1], i[2]))
+            if mys == True and mys_pos[0] in range(i[1]-5, i[1]+5) and mys_pos[1] in range(i[2]-5, i[2]+5):
+                print(f"Yayy {i[0]}")
+
+        for i in countries_coordinates[displayed_continent]:
+            screen.blit(tecka, (i[1]-5, i[2]-5))
 
         if mys == True:
             kliknuto = -1
