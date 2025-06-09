@@ -391,6 +391,20 @@ countries_coordinates = [
 ]
 ]
 
+for i in range(len(countries_coordinates)):
+    for j in range(len(countries_coordinates[i])):
+# Access the tuple
+        tuple_item = countries_coordinates[i][j]
+
+# Convert tuple to list
+        list_item = list(tuple_item)
+
+# Modify the first element
+        list_item[0] = list_item[0].strip()
+
+# Assign back as tuple
+        countries_coordinates[i][j] = tuple(list_item)
+
 def scaling(image, af_proportions, pomer, velikost):
     
     if af_proportions > pomer: 
