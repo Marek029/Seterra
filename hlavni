@@ -3,7 +3,7 @@ import sys
 import time
 import math
 
-path = "C:\\Users\\marek\\Seterra\\"
+path = "O:\\5.M\\Python\\"
 
 countries_and_territories = [
     ("Afghanistan", "Afghánistán"),
@@ -248,26 +248,22 @@ countries_and_territories = [
 
 
 countries_coordinates_central_america = [
-    ("Antigua and Barbuda", 17.0608, -61.7964),
-    ("Bahamas", 25.0343, -77.3963),
-    ("Barbados", 13.1939, -59.5432),
+    
     
     ("Costa Rica", 9.7489, -83.7534),
     ("Cuba", 21.5218, -77.7812),
-    ("Dominica", 15.4148, -61.3700),
+    
     ("Dominican Republic", 18.7357, -70.1627),
     ("El Salvador", 13.7942, -88.8965),
-    ("Grenada", 12.2628, -61.6042),
+    
     ("Guatemala", 15.7835, -90.2308),
     ("Haiti", 18.9712, -72.2852),
     ("Honduras", 13.9094, -83.4286),
     ("Jamaica", 18.1096, -77.2975),
     ("Nicaragua", 12.8654, -85.2072),
     ("Panama", ),
-    ("Saint Kitts and Nevis", ),
-    ("Saint Lucia", ),
-    ("Saint Vincent and the Grenadines", ),
-    ("Trinidad and Tobago", ),
+    
+    
     
 ]
 
@@ -278,9 +274,55 @@ countries_coordinates = [
     ("Mexico", 541, 724)
 ],
 [# stredni amerika
-    ("blabla", 560, 533),
-    ("ostatni", 529, 351),
-    ("neco", 541, 724)
+("Belize", 445, 341),
+("Guatemala", 421, 370),
+("El Salvador", 440, 395),
+("Honduras",474, 377),
+("Nicaragua",509, 408),
+("Costa Rica",524, 462),
+("Panama",569, 485),
+("Cuba",612, 262),
+("Haiti",714, 303),
+("Dominican repiblic",738, 305),
+("Jamaica",630, 317),
+("Puerto Rico",808, 308),
+("Antigua and Barbuda", 881, 318),
+("Bahamas", 615, 206),
+("Barbados", 924, 382),
+("Dominica", 891, 349),
+("Grenada", 892, 404),
+("Trinidad and Tobago", 902, 430),
+("Saint Kitts and Nevis", 865, 318),
+("Saint Lucia", 900, 372),
+("Saint Vincent and the Grenadines", 898, 385)
+],
+[# jižní amerika
+("Brasil", 440, 317),
+("Colombia", 177, 113),
+("Venezuela", 248, 92),
+("Guyana", 336, 113),
+("Surinam", 364, 130),
+("French Guyana", 396, 138),
+("Ecuador", 116, 187),
+("Peru", 148, 268),
+("Bolivia", 271, 344),
+("Paraguay", 322, 417),
+("Chile", 206, 511),
+("Argentina", 269, 530),
+("Uruguay", 333, 522),
+("Falklands", 284, 699)
+],
+[# oceanie
+("Australia", 218, 454)
+],
+[# asie
+("China", 573, 366)
+],
+[# evropa
+("Czechia", 404, 487)
+],
+[# afrika
+("Somalia", 706, 367)
 ]
 ]
 
@@ -327,7 +369,7 @@ mys = False
 
 continents = []
 continents_prop = []
-continents_name = [ "North-america.svg", "central_america.gif", "South-america.svg", "Oceania.png", "Asia.png", "Europe.jpeg", "Africa.svg"]
+continents_name = [ "North-america.svg", "central_america.gif", "South-america.svg", "Oceania.png", "Asia.png", "Europe.png", "Africa.svg"]
 # Load the image (make sure the image is in the same folder as the script or provide the full path)
 pathh = f"{path}"
 for i in range(len(continents_name)):
@@ -397,7 +439,7 @@ while running:
         if mys == True:
             kliknuto = -1
             for i in countries_coordinates[displayed_continent]:
-                if math.sqrt((abs(mys_pos[0]-i[1]))**2 + (abs(mys_pos[1]-i[2]))**2) < 10:
+                if math.sqrt((mys_pos[0]-i[1])**2 + (mys_pos[1]-i[2])**2) < 10:
                     kliknuto = i[0]
     # Update the screen
     pygame.display.flip()
