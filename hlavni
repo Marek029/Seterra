@@ -427,7 +427,7 @@ def update_cur_count(guessed):
 # Initialize pygame
 pygame.init()
 
-barva_pozadí_typ = 1
+barva_pozadí_typ = 4
 co = 0.5
 
 velikost = [1000, 800] #delka obrazovky, výška obrazovky
@@ -506,6 +506,12 @@ while running:
         color_value1 = 245 
         color_value2 = 118
         color_value3 = 52
+
+  if barva_pozadí_typ == 4:
+        color_value1 = 100 
+        color_value2 = 2
+        color_value3 = 166
+
         # Fill the screen with a color (optional)
     screen.fill((int(color_value1), int(color_value2), int(color_value3)))  # White background with time-dependent blue channel
 
