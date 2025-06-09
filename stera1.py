@@ -2,6 +2,7 @@ import pygame
 import sys
 import time
 import math
+import random
 
 path = "O:\\setera\\"
 
