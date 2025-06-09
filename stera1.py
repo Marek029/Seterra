@@ -489,7 +489,7 @@ while running:
         color_value1 = 245 
         color_value2 = 118
         color_value3 = 52
-    # Fill the screen with a color (optional)
+        # Fill the screen with a color (optional)
     screen.fill((int(color_value1), int(color_value2), int(color_value3)))  # White background with time-dependent blue channel
 
     if game_state == 1:
@@ -498,17 +498,38 @@ while running:
         screen.blit(continents[displayed_continent], (0, 0))
 
         for i in countries_coordinates[displayed_continent]:
-            if mys == True and mys_pos[0] in range(i[1]-5, i[1]+5) and mys_pos[1] in range(i[2]-5, i[2]+5):
-                print(f"Yayy {i[0]}")
-
-        for i in countries_coordinates[displayed_continent]:
             screen.blit(tecka, (i[1]-5, i[2]-5))
+        
+        kliknuto = -1
+        """for i in countries_coordinates[displayed_continent]:
+            if mys == True and mys_pos[0] in range(i[1]-5, i[1]+5) and mys_pos[1] in range(i[2]-5, i[2]+5):
+                kliknuto = i[0]"""
 
         if mys == True:
-            kliknuto = -1
+            mouse_cool_down = time.time()
             for i in countries_coordinates[displayed_continent]:
+               
                 if math.sqrt((mys_pos[0]-i[1])**2 + (mys_pos[1]-i[2])**2) < 10:
+                    
                     kliknuto = i[0]
+
+        if kliknuto !=-1 and (time.time()-posledni_spravne_kliknuti)>0.5:
+            
+            if kliknuto == current_country:
+                print("Správně!")
+                current_country = update_cur_count(kliknuto)
+                print(f"Klikni na {current_country}")
+                posledni_spravne_kliknuti = time.time()
+
+            elif kliknuto != posledni_hadana_zeme: 
+                print(f"Špatně, to byl/a/o {kliknuto}")
+                posledni_hadana_zeme = kliknuto
+
+        
+            
+
+        
+
     # Update the screen
     pygame.display.flip()
 
