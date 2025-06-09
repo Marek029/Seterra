@@ -403,11 +403,22 @@ def scaling(image, af_proportions, pomer, velikost):
 
     return imagee
 
-def latlon_to_screen(lat, lon, map_bounds, screen_size):
-    min_lat, max_lat, min_lon, max_lon = map_bounds
-    x = (lon - min_lon) / (max_lon - min_lon) * screen_size[0]
-    y = (1 - (lat - min_lat) / (max_lat - min_lat)) * screen_size[1]
-    return int(x), int(y)
+uhadnute_zeme = []
+
+def update_cur_count(guessed):
+    if guessed != 0:
+        uhadnute_zeme.append(guessed)
+        #nova_zeme = uhadnute_zeme[random.randint(0,len(uhadnute_zeme))]
+    nova_zeme = countries_coordinates[random.randint(0,len(countries_coordinates)-1)]
+    nova_zeme = nova_zeme[random.randint(0,len(nova_zeme)-1)]
+    nova_zeme = nova_zeme[0].strip()
+
+    while nova_zeme in uhadnute_zeme:
+        nova_zeme = countries_coordinates[random.randint(0,len(countries_coordinates)-1)]
+        nova_zeme = nova_zeme[random.randint(0,len(nova_zeme)-1)]
+        nova_zeme = nova_zeme[0].strip()
+
+    return nova_zeme
     
 
 #Sizes_NA = [83.0337814, 14.53144]
@@ -415,8 +426,8 @@ def latlon_to_screen(lat, lon, map_bounds, screen_size):
 # Initialize pygame
 pygame.init()
 
-barva_pozadí_typ = 3
-co = 0
+barva_pozadí_typ = 1
+co = 0.5
 
 velikost = [1000, 800] #delka obrazovky, výška obrazovky
 pomer = velikost[0] / velikost[1]
@@ -447,9 +458,13 @@ game_state = 1
 #3 - provincie státu (jen u vybraných)
 #4 - vlajky provincií (jen u vybraných)
 #5 - města
-current_country = 0 #aktuálně hádaná země
+current_country = update_cur_count(0) #aktuálně hádaná země
+print(f"Klikni na {current_country}")
 
 displayed_continent = 0
+mouse_cool_down = time.time()
+posledni_hadana_zeme = "idk"
+posledni_spravne_kliknuti = 0
 # Main game loop
 running = True
 while running:
@@ -464,17 +479,18 @@ while running:
                 if event.key == pygame.K_RIGHT: displayed_continent += 1
                 displayed_continent = displayed_continent % len(continents)
         
-        if event.type == pygame.MOUSEBUTTONDOWN:
+        if event.type == pygame.MOUSEBUTTONDOWN and (time.time()-mouse_cool_down)>0.5:
             
             print(pygame.mouse.get_pos())
 
             mys_pos = pygame.mouse.get_pos()
             mys = True
+            
         else: mys = False
 
     
     time_stamp = time.time()
-
+    
     if barva_pozadí_typ == 1:
         color_value1 = int(abs(((time_stamp* 7*co) % 510)-255))  # Wrap around the time value to stay within range
         color_value2 = int(abs(((time_stamp*11*co) % 510)-255))
