@@ -4,7 +4,7 @@ import time
 import math
 import random
 
-path = "O:\\setera\\"
+path = "C:\\Users\\marek\\Seterra\\"
 
 countries_and_territories = [
     ("Afghanistan", "Afghánistán"),
@@ -388,6 +388,32 @@ countries_coordinates = [
 ],
 [# afrika
 ("Somalia", 706, 367)
+],
+[# kanada
+    ("Alberta", 199, 534),
+    ("British Columbia", 119, 529),
+    ("Manitoba", 346, 551),
+    ("New Brunswick", 661, 638),
+    ("Newfoundland and Labrador", 728, 525),
+    ("Nova Scotia", 701, 646),
+    ("Ontario", 462, 611),
+    ("Prince Edward Island", 694, 626),
+    ("Quebec", 581, 569),
+    ("Saskatchewan", 278, 561),
+    ("Northwest Territories", 179, 377),
+    ("Nunavut", 378, 376),
+    ("Yukon", 81, 366)
+]
+]
+
+appendings = ["","","","","","","","(Canada)",]
+
+texty = [
+[
+    "Correct!", "Click on", "Wrong, that was"
+],
+[
+    "Správně!", "Klikni na", "Špatně, to byl/a/o"
 ]
 ]
 
@@ -435,14 +461,22 @@ def update_cur_count(guessed):
 
     return nova_zeme
     
+def found_country(name):
+    for i in range(len(countries_coordinates)):
+        for j in range(len(countries_coordinates[i])):
+            if countries_coordinates[i][j][0] == name:
+                return [i,j]
+    return [0,0]
 
-#Sizes_NA = [83.0337814, 14.53144]
 
 # Initialize pygame
 pygame.init()
 
-barva_pozadí_typ = 4
+barva_pozadí_typ = int(input("Select your backround color mode (1,2,3 or 4)").strip())
 co = 0.5
+
+language = int(input("Select your language (1-en, 2-cz)").strip())
+language -=1
 
 velikost = [1000, 800] #delka obrazovky, výška obrazovky
 pomer = velikost[0] / velikost[1]
@@ -459,7 +493,7 @@ mys = False
 
 continents = []
 continents_prop = []
-continents_name = [ "North-america.svg", "central_america.gif", "South-america.svg", "Oceania.png", "Asia.png", "Europe.png", "Africa.svg"]
+continents_name = [ "North-america.svg", "central_america.gif", "South-america.svg", "Oceania.png", "Asia.png", "Europe.png", "Africa.svg", "canada.png"]
 # Load the image (make sure the image is in the same folder as the script or provide the full path)
 pathh = f"{path}"
 for i in range(len(continents_name)):
@@ -474,7 +508,7 @@ game_state = 1
 #4 - vlajky provincií (jen u vybraných)
 #5 - města
 current_country = update_cur_count(0) #aktuálně hádaná země
-print(f"Klikni na {current_country}")
+print(f"{texty[language][1]} {current_country}")
 
 displayed_continent = 0
 mouse_cool_down = time.time()
@@ -490,8 +524,8 @@ while running:
         
         if event.type == pygame.KEYDOWN:
             if game_state == 1:
-                if event.key == pygame.K_LEFT: displayed_continent -= 1
-                if event.key == pygame.K_RIGHT: displayed_continent += 1
+                if event.key in [pygame.K_LEFT, pygame.K_a]: displayed_continent -= 1
+                if event.key in [pygame.K_RIGHT, pygame.K_d]: displayed_continent += 1
                 displayed_continent = displayed_continent % len(continents)
         
         if event.type == pygame.MOUSEBUTTONDOWN and (time.time()-mouse_cool_down)>0.5:
@@ -521,7 +555,7 @@ while running:
         color_value2 = 118
         color_value3 = 52
 
-  if barva_pozadí_typ == 4:
+    if barva_pozadí_typ == 4:
         color_value1 = 100 
         color_value2 = 2
         color_value3 = 166
@@ -538,9 +572,6 @@ while running:
             screen.blit(tecka, (i[1]-5, i[2]-5))
         
         kliknuto = -1
-        """for i in countries_coordinates[displayed_continent]:
-            if mys == True and mys_pos[0] in range(i[1]-5, i[1]+5) and mys_pos[1] in range(i[2]-5, i[2]+5):
-                kliknuto = i[0]"""
 
         if mys == True:
             mouse_cool_down = time.time()
@@ -553,17 +584,16 @@ while running:
         if kliknuto !=-1 and (time.time()-posledni_spravne_kliknuti)>0.5:
             
             if kliknuto == current_country:
-                print("Správně!")
+                print(texty[language][0])
                 current_country = update_cur_count(kliknuto)
-                print(f"Klikni na {current_country}")
+                ij = found_country(current_country)
+                print(f"{texty[language][1]} {current_country} {appendings[ij[0]]}")
                 posledni_spravne_kliknuti = time.time()
 
             elif kliknuto != posledni_hadana_zeme: 
-                print(f"Špatně, to byl/a/o {kliknuto}")
+                ij = found_country(kliknuto)
+                print(f"{texty[language][2]} {kliknuto} {appendings[ij[0]]}")
                 posledni_hadana_zeme = kliknuto
-
-        
-            
 
         
 
