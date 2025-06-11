@@ -247,7 +247,7 @@ countries_and_territories = [
     ("Pitcairn Islands", "Pitcairnovy ostrovy")
 ]
 
-
+"""
 countries_coordinates_central_america = [
     
     
@@ -266,7 +266,8 @@ countries_coordinates_central_america = [
     
     
     
-]
+]"""
+
 
 countries_coordinates = [
 [ #north america
@@ -507,8 +508,10 @@ game_state = 1
 #3 - provincie státu (jen u vybraných)
 #4 - vlajky provincií (jen u vybraných)
 #5 - města
+
 current_country = update_cur_count(0) #aktuálně hádaná země
-print(f"{texty[language][1]} {current_country}")
+ij = found_country(current_country)
+print(f"{texty[language][1]} {current_country} {appendings[ij[0]]}")
 
 displayed_continent = 0
 mouse_cool_down = time.time()
