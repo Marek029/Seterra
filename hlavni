@@ -667,7 +667,7 @@ height = velikost[1]
 screen = pygame.display.set_mode((velikost[0], velikost[1]))  # Screen size: 800x600
 pygame.display.set_caption('Seterra ultimate challange')
 
-teckaa = pygame.image.load(f'{path}dot.jpg').convert_alpha()
+teckaa = pygame.image.load(f'{path}dot.png').convert_alpha()
 tecka = pygame.transform.scale(teckaa, (10, 10))
 
 mys = False
