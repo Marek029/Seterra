@@ -244,7 +244,31 @@ countries_and_territories = [
     ("British Indian Ocean Territory", "Britské indickooceánské území"),
     ("Christmas Island", "Vánoční ostrov"),
     ("Norfolk Island", "Norfolk"),
-    ("Pitcairn Islands", "Pitcairnovy ostrovy")
+    ("Pitcairn Islands", "Pitcairnovy ostrovy"),
+
+    ("Alberta", "Alberta"),
+    ("British Columbia", "Britská Kolumbie"),
+    ("Manitoba", "Manitoba"),
+    ("New Brunswick", "Nový Brunšvik"),
+    ("Newfoundland and Labrador", "Newfoundland a Labrador"),
+    ("Nova Scotia", "Nové Skotsko"),
+    ("Ontario", "Ontario"),
+    ("Prince Edward Island", "Ostrov prince Eduarda"),
+    ("Quebec", "Québec"),
+    ("Saskatchewan", "Saskatchewan"),
+    ("Northwest Territories", "Severozápadní teritorium"),
+    ("Nunavut", "Nunavut"),
+    ("Yukon", "Yukon"),
+
+    ("New South Wales", "Nový Jižní Wales"),
+    ("Victoria", "Victoria"),
+    ("Queensland", "Queensland"),
+    ("Western Australia", "Západní Austrálie"),
+    ("South Australia", "Jižní Austrálie"),
+    ("Tasmania", "Tasmánie"),
+    ("Australian Capital Territory", "Australské hlavní teritorium"),
+    ("Northern Territory", "Severní teritorium")
+
 ]
 
 """
@@ -404,10 +428,26 @@ countries_coordinates = [
     ("Northwest Territories", 179, 377),
     ("Nunavut", 378, 376),
     ("Yukon", 81, 366)
+],
+[
+    ("New South Wales", 648, 635),
+    ("Victoria", 689, 516),
+    ("Queensland", 669, 317),
+    ("Western Australia", 205, 370),
+    ("South Australia", 466, 434),
+    ("Tasmania", 680, 762),
+    ("Capital Territory", 743, 610),
+    ("Northern Territory", 439, 245)
 ]
 ]
 
-appendings = ["","","","","","","","(Canada)",]
+appendings = [
+
+["","","","","","","","(Canada)","(Australia)"],
+
+["","","","","","","","(Kanada)","(Austrálie)"]
+
+]
 
 texty = [
 [
@@ -431,6 +471,10 @@ for i in range(len(countries_coordinates)):
 
 # Assign back as tuple
         countries_coordinates[i][j] = tuple(list_item)
+
+#def translation_to_en():
+    
+
 
 def scaling(image, af_proportions, pomer, velikost):
     
@@ -494,7 +538,7 @@ mys = False
 
 continents = []
 continents_prop = []
-continents_name = [ "North-america.svg", "central_america.gif", "South-america.svg", "Oceania.png", "Asia.png", "Europe.png", "Africa.svg", "canada.png"]
+continents_name = [ "North-america.svg", "central_america.gif", "South-america.svg", "Oceania.png", "Asia.png", "Europe.png", "Africa.svg", "canada.png","Australia.svg"]
 # Load the image (make sure the image is in the same folder as the script or provide the full path)
 pathh = f"{path}"
 for i in range(len(continents_name)):
@@ -511,7 +555,7 @@ game_state = 1
 
 current_country = update_cur_count(0) #aktuálně hádaná země
 ij = found_country(current_country)
-print(f"{texty[language][1]} {current_country} {appendings[ij[0]]}")
+print(f"{texty[language][1]} {current_country} {appendings[language][ij[0]]}")
 
 displayed_continent = 0
 mouse_cool_down = time.time()
@@ -590,12 +634,12 @@ while running:
                 print(texty[language][0])
                 current_country = update_cur_count(kliknuto)
                 ij = found_country(current_country)
-                print(f"{texty[language][1]} {current_country} {appendings[ij[0]]}")
+                print(f"{texty[language][1]} {current_country} {appendings[language][ij[0]]}")
                 posledni_spravne_kliknuti = time.time()
 
             elif kliknuto != posledni_hadana_zeme: 
                 ij = found_country(kliknuto)
-                print(f"{texty[language][2]} {kliknuto} {appendings[ij[0]]}")
+                print(f"{texty[language][2]} {kliknuto} {appendings[language][ij[0]]}")
                 posledni_hadana_zeme = kliknuto
 
         
