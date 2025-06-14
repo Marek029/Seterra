@@ -563,14 +563,25 @@ countries_coordinates = [
     ("Remich",        398, 667       ),
     ("Vianden",    307, 287        ),
     ("Wiltz",        150, 282             ),
+],
+[#jižní afrika
+    ("Western Cape", 238, 723),
+    ("Northern Cape", 277, 484),
+    ("Eastern Cape", 579, 648),
+    ("KwaZulu-Natal", 806, 427),
+    ("Free State", 587, 398),
+    ("North West", 518, 275),
+    ("Gauteng", 661, 251),
+    ("Mpumalanga", 761, 264),
+    ("Limpopo", 738, 114)
 ]
 ]
 
 appendings = [
 
-["","","","","","","","(Canada)","(Australia)","(Luxembourg)"],
+["","","","","","","","(Canada)","(Australia)","(Luxembourg)","(South Africa)"],
 
-["","","","","","","","(Kanada)","(Austrálie)","(Lucembusko)"]
+["","","","","","","","(Kanada)","(Austrálie)","(Lucembusko)","(Jižní Afrika)"]
 
 ]
 
@@ -663,7 +674,7 @@ mys = False
 
 continents = []
 continents_prop = []
-continents_name = [ "North-america.svg", "central_america.gif", "South-america.svg", "Oceania.png", "Asia.png", "Europe.png", "Africa.svg", "canada.png","Australia.svg", "Luxembourg.png"]
+continents_name = [ "North-america.svg", "central_america.gif", "South-america.svg", "Oceania.png", "Asia.png", "Europe.png", "Africa.svg", "canada.png","Australia.svg", "Luxembourg.png","South_Africa.svg"]
 # Load the image (make sure the image is in the same folder as the script or provide the full path)
 pathh = f"{path}"
 for i in range(len(continents_name)):
