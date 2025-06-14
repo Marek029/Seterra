@@ -5,6 +5,7 @@ import math
 import random
 
 path = "C:\\Users\\marek\\Seterra\\"
+konst_display = 0.5
 
 countries_and_territories = [
     ("Afghanistan", "Afghánistán"),
@@ -429,7 +430,7 @@ countries_coordinates = [
     ("Nunavut", 378, 376),
     ("Yukon", 81, 366)
 ],
-[
+[#australie
     ("New South Wales", 648, 635),
     ("Victoria", 689, 516),
     ("Queensland", 669, 317),
@@ -497,12 +498,12 @@ def update_cur_count(guessed):
         #nova_zeme = uhadnute_zeme[random.randint(0,len(uhadnute_zeme))]
     nova_zeme = countries_coordinates[random.randint(0,len(countries_coordinates)-1)]
     nova_zeme = nova_zeme[random.randint(0,len(nova_zeme)-1)]
-    nova_zeme = nova_zeme[0].strip()
+    nova_zeme = nova_zeme[0]
 
     while nova_zeme in uhadnute_zeme:
         nova_zeme = countries_coordinates[random.randint(0,len(countries_coordinates)-1)]
         nova_zeme = nova_zeme[random.randint(0,len(nova_zeme)-1)]
-        nova_zeme = nova_zeme[0].strip()
+        nova_zeme = nova_zeme[0]
 
     return nova_zeme
     
@@ -523,7 +524,7 @@ co = 0.5
 language = int(input("Select your language (1-en, 2-cz)").strip())
 language -=1
 
-velikost = [1000, 800] #delka obrazovky, výška obrazovky
+velikost = [int(1000*konst_display), int(800*konst_display)] #delka obrazovky, výška obrazovky
 pomer = velikost[0] / velikost[1]
 width = velikost[0]
 height = velikost[1]
@@ -616,7 +617,7 @@ while running:
         screen.blit(continents[displayed_continent], (0, 0))
 
         for i in countries_coordinates[displayed_continent]:
-            screen.blit(tecka, (i[1]-5, i[2]-5))
+            screen.blit(tecka, (i[1]*konst_display-5, i[2]*konst_display-5))
         
         kliknuto = -1
 
@@ -624,7 +625,7 @@ while running:
             mouse_cool_down = time.time()
             for i in countries_coordinates[displayed_continent]:
                
-                if math.sqrt((mys_pos[0]-i[1])**2 + (mys_pos[1]-i[2])**2) < 10:
+                if math.sqrt((mys_pos[0]-i[1]*konst_display)**2 + (mys_pos[1]-i[2]*konst_display)**2) < 10:
                     
                     kliknuto = i[0]
 
