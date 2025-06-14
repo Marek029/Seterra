@@ -1,10 +1,12 @@
+
+
 import pygame
 import sys
 import time
 import math
 import random
 
-path = "C:\\Users\\marek\\Seterra\\"
+path = "C:\\Users\\mazum\\Desktop\\Seterra\\"
 konst_display = 1
 
 countries_and_territories = [
@@ -43,7 +45,8 @@ countries_and_territories = [
     ("Central African Republic", "Středoafrická republika"),
     ("Chad", "Čad"),
     ("Chile", "Chile"),
-    ("China", "Čína"),
+    ("China (PRC)", "Čína (PRC)"),
+    ("China (ROC)", "Čína (ROC)"),
     ("Colombia", "Kolumbie"),
     ("Comoros", "Komory"),
     ("Congo (Congo-Brazzaville)", "Kongo (Brazzaville)"),
@@ -89,7 +92,7 @@ countries_and_territories = [
     ("Iran", "Írán"),
     ("Iraq", "Irák"),
     ("Ireland", "Irsko"),
-    ("Israel", "Izrael"),
+    ("Israel and/or West bank and Gaza", "Izrael"),
     ("Italy", "Itálie"),
     ("Ivory Coast", "Pobřeží slonoviny"),
     ("Jamaica", "Jamajka"),
@@ -268,7 +271,21 @@ countries_and_territories = [
     ("South Australia", "Jižní Austrálie"),
     ("Tasmania", "Tasmánie"),
     ("Australian Capital Territory", "Australské hlavní teritorium"),
-    ("Northern Territory", "Severní teritorium")
+    ("Northern Territory", "Severní teritorium"),
+
+    ("Capellen", "Capellen"),
+    ("Clervaux", "Clervaux"),
+    ("Diekirch", "Diekirch"),
+    ("Echternach", "Echternach"),
+    ("Esch-sur-Alzette", "Esch-sur-Alzette"),
+    ("Grevenmacher", "Grevenmacher"),
+    ("Luxembourg", "Lucemburk"),
+    ("Mersch", "Mersch"),
+    ("Redange", "Redange"),
+    ("Remich", "Remich"),
+    ("Vianden", "Vianden"),
+    ("Wiltz", "Wiltz")
+
 
 ]
 
@@ -292,7 +309,6 @@ countries_coordinates_central_america = [
     
     
 ]"""
-
 
 
 countries_coordinates = [
@@ -486,14 +502,28 @@ countries_coordinates = [
     ("Tasmania", 680, 762),
     ("Capital Territory", 743, 610),
     ("Northern Territory", 439, 245)
+],
+[# Lucembusko
+    ("Capellen",  189, 567      ),
+    ("Clervaux",   215, 140        ),
+    ("Diekirch",    265, 356          ),
+    ("Echternach", 428, 423      ),
+    ("Esch-sur-Alzette",       227, 682            ),
+    ("Grevenmacher",        419, 514            ),
+    ("Luxembourg",        314, 590             ),
+    ("Mersch",  285, 458),
+    ("Redange",    150, 418            ),
+    ("Remich",        398, 667       ),
+    ("Vianden",    307, 287        ),
+    ("Wiltz",        150, 282             ),
 ]
 ]
 
 appendings = [
 
-["","","","","","","","(Canada)","(Australia)"],
+["","","","","","","","(Canada)","(Australia)","(Luxembourg)"],
 
-["","","","","","","","(Kanada)","(Austrálie)"]
+["","","","","","","","(Kanada)","(Austrálie)","(Lucembusko)"]
 
 ]
 
@@ -586,7 +616,7 @@ mys = False
 
 continents = []
 continents_prop = []
-continents_name = [ "North-america.svg", "central_america.gif", "South-america.svg", "Oceania.png", "Asia.png", "Europe.png", "Africa.svg", "canada.png","Australia.svg"]
+continents_name = [ "North-america.svg", "central_america.gif", "South-america.svg", "Oceania.png", "Asia.png", "Europe.png", "Africa.svg", "canada.png","Australia.svg", "Luxembourg.png"]
 # Load the image (make sure the image is in the same folder as the script or provide the full path)
 pathh = f"{path}"
 for i in range(len(continents_name)):
