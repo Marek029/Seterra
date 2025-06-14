@@ -6,8 +6,10 @@ import time
 import math
 import random
 
-path = "C:\\Users\\marek\\Seterra\\"
+path = "C:\\Users\\petrz\\Downloads\\"
 konst_display = 1
+souradky_zeme = [0,0]
+kontinent = 0
 
 countries_and_territories = [
     ("Afghanistan", "Afghánistán"),
@@ -585,12 +587,17 @@ appendings = [
 
 ]
 
+mapy = [
+    ["North America", "Central America", "South America", "Oceania", "Asia", "Europe", "Africa"],
+    ["severní Americe", "střední Americe", "jižní Americe", "Oceáníí", "Asii", "Evropě" ,"Africe"]
+]
+
 texty = [
 [
-    "Correct!", "Click on", "Wrong, that was"
+    "Correct!", "Click on", "Wrong, that was", "The dot of the guessing country just turned red", "Btw, the country you are looking for is in"
 ],
 [
-    "Správně!", "Klikni na", "Špatně, to byl/a/o"
+    "Správně!", "Klikni na", "Špatně, to byl/a/o", "Tečka hádané země se právě rozsvítila červeně", "Btw, země kterou hledáš je v"
 ]
 ]
 
@@ -631,8 +638,13 @@ def update_cur_count(guessed):
     if guessed != 0:
         uhadnute_zeme.append(guessed)
         #nova_zeme = uhadnute_zeme[random.randint(0,len(uhadnute_zeme))]
-    nova_zeme = countries_coordinates[random.randint(0,len(countries_coordinates)-1)]
+    global kontinent
+    kontinent = random.randint(0,len(countries_coordinates)-1)
+    nova_zeme = countries_coordinates[kontinent]
     nova_zeme = nova_zeme[random.randint(0,len(nova_zeme)-1)]
+    global souradky_zeme
+    souradky_zeme[0] = nova_zeme[1]
+    souradky_zeme[1] = nova_zeme[2]
     nova_zeme = nova_zeme[0]
 
     while nova_zeme in uhadnute_zeme:
@@ -670,6 +682,10 @@ pygame.display.set_caption('Seterra ultimate challange')
 teckaa = pygame.image.load(f'{path}dot.png').convert_alpha()
 tecka = pygame.transform.scale(teckaa, (10, 10))
 
+cervena_teckaa = pygame.image.load(f'{path}red_dot.jpg').convert_alpha()
+cervena_tecka = pygame.transform.scale(cervena_teckaa, (10, 10))
+
+
 mys = False
 
 continents = []
@@ -697,6 +713,8 @@ displayed_continent = 0
 mouse_cool_down = time.time()
 posledni_hadana_zeme = "idk"
 posledni_spravne_kliknuti = 0
+spatne = 0
+pozastaveno = 0
 # Main game loop
 running = True
 while running:
@@ -753,6 +771,8 @@ while running:
 
         for i in countries_coordinates[displayed_continent]:
             screen.blit(tecka, (i[1]*konst_display-5, i[2]*konst_display-5))
+            if pozastaveno == 1 and displayed_continent == kontinent:
+                screen.blit(cervena_tecka,(souradky_zeme[0] * konst_display-5, souradky_zeme[1] * konst_display-5))
         
         kliknuto = -1
 
@@ -768,15 +788,24 @@ while running:
             
             if kliknuto == current_country:
                 print(texty[language][0])
+                pozastaveno = 0
+                spatne = 0
                 current_country = update_cur_count(kliknuto)
                 ij = found_country(current_country)
                 print(f"{texty[language][1]} {current_country} {appendings[language][ij[0]]}")
                 posledni_spravne_kliknuti = time.time()
 
-            elif kliknuto != posledni_hadana_zeme: 
-                ij = found_country(kliknuto)
-                print(f"{texty[language][2]} {kliknuto} {appendings[language][ij[0]]}")
-                posledni_hadana_zeme = kliknuto
+            elif kliknuto != posledni_hadana_zeme:
+                if pozastaveno == 0:
+                    ij = found_country(kliknuto)
+                    print(f"{texty[language][2]} {kliknuto} {appendings[language][ij[0]]}")
+                    spatne = spatne + 1
+                    if spatne == 3:
+                        print(texty[language][3])
+                        if kontinent < 7:
+                            print(f"{texty[language][4]} {mapy[language][kontinent]}")
+                        pozastaveno = 1
+                    posledni_hadana_zeme = kliknuto
 
         
 
