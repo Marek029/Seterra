@@ -731,7 +731,7 @@ while running:
         
         if event.type == pygame.MOUSEBUTTONDOWN and (time.time()-mouse_cool_down)>0.5:
             
-            print(pygame.mouse.get_pos())
+            #print(pygame.mouse.get_pos())
 
             mys_pos = pygame.mouse.get_pos()
             mys = True
