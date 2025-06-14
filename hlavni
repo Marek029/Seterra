@@ -5,7 +5,7 @@ import math
 import random
 
 path = "C:\\Users\\marek\\Seterra\\"
-konst_display = 0.5
+konst_display = 1
 
 countries_and_territories = [
     ("Afghanistan", "Afghánistán"),
@@ -413,7 +413,8 @@ countries_coordinates = [
 ("Czechia", 404, 487)
 ],
 [# afrika
-("Somalia", 706, 367)
+    ("Algeria", 245, 110),
+    #Marek S to už skoro má hotový
 ],
 [# kanada
     ("Alberta", 199, 534),
