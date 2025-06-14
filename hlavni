@@ -1,16 +1,21 @@
-
-
+#export
 import pygame
 import sys
 import time
 import math
 import random
 
-path = "C:\\Users\\petrz\\Downloads\\"
+path = "C:\\Users\\marek\\Seterra\\"
 konst_display = 1
 souradky_zeme = [0,0]
 kontinent = 0
-
+"""
+file = 'some.mp3'
+pygame.init()
+pygame.mixer.init()
+pygame.mixer.music.load(file)
+pygame.mixer.music.play()
+"""
 countries_and_territories = [
     ("Afghanistan", "Afghánistán"),
     ("Albania", "Albánie"),
@@ -597,7 +602,7 @@ texty = [
     "Correct!", "Click on", "Wrong, that was", "The dot of the guessing country just turned red", "Btw, the country you are looking for is in"
 ],
 [
-    "Správně!", "Klikni na", "Špatně, to byl/a/o", "Tečka hádané země se právě rozsvítila červeně", "Btw, země kterou hledáš je v"
+    "Správně!", "Klikni na", "Špatně, to byl/a/o", "Tečka hádané země se právě rozsvítila červeně", "Mimochodem, země kterou hledáš je v"
 ]
 ]
 
@@ -685,6 +690,9 @@ tecka = pygame.transform.scale(teckaa, (10, 10))
 cervena_teckaa = pygame.image.load(f'{path}red_dot.jpg').convert_alpha()
 cervena_tecka = pygame.transform.scale(cervena_teckaa, (10, 10))
 
+infoo = pygame.image.load(f'{path}Info.png').convert_alpha()
+info = pygame.transform.scale(infoo, (velikost[0],velikost[1]))
+
 
 mys = False
 
@@ -698,6 +706,11 @@ for i in range(len(continents_name)):
     continents_prop.append(continents[i].get_width() / continents[i].get_height())
     continents[i]=scaling(continents[i], continents_prop[i], pomer, velikost)
 
+#game begins
+
+screen.blit(info, (0,0))
+info_is_shown = True
+
 game_state = 1 
 #1 - kontinety, výběr státu
 #2 - vlajky - výběr vlajky státu
@@ -705,9 +718,6 @@ game_state = 1
 #4 - vlajky provincií (jen u vybraných)
 #5 - města
 
-current_country = update_cur_count(0) #aktuálně hádaná země
-ij = found_country(current_country)
-print(f"{texty[language][1]} {current_country} {appendings[language][ij[0]]}")
 
 displayed_continent = 0
 mouse_cool_down = time.time()
@@ -724,11 +734,28 @@ while running:
             running = False
         
         if event.type == pygame.KEYDOWN:
+
+            if info_is_shown == True:
+                current_country = update_cur_count(0) #aktuálně hádaná země
+                ij = found_country(current_country)
+                print(f"{texty[language][1]} {current_country} {appendings[language][ij[0]]}")
+            info_is_shown = False
+            
             if game_state == 1:
                 if event.key in [pygame.K_LEFT, pygame.K_a]: displayed_continent -= 1
                 if event.key in [pygame.K_RIGHT, pygame.K_d]: displayed_continent += 1
                 displayed_continent = displayed_continent % len(continents)
-        
+            
+            if event.key == pygame.K_l:
+                language = int(input("Select your language (1-en, 2-cz): ").strip())
+                language -=1
+
+            if event.key == pygame.K_b:
+                barva_pozadí_typ = int(input("Select your backround color mode (1,2,3 or 4): ").strip())
+
+            if event.key == pygame.K_s:
+                co = int(input("Change the speed of color change: ").strip())
+
         if event.type == pygame.MOUSEBUTTONDOWN and (time.time()-mouse_cool_down)>0.5:
             
             #print(pygame.mouse.get_pos())
@@ -761,10 +788,13 @@ while running:
         color_value2 = 2
         color_value3 = 166
 
-        # Fill the screen with a color (optional)
-    screen.fill((int(color_value1), int(color_value2), int(color_value3)))  # White background with time-dependent blue channel
+    # Fill the screen with a color
+    screen.fill((int(color_value1), int(color_value2), int(color_value3))) 
 
-    if game_state == 1:
+    if info_is_shown == True:
+        screen.blit(info, (0,0))
+
+    elif game_state == 1:
         image_rect = continents[displayed_continent].get_rect()
         image_rect.center = (velikost[0]/2,velikost[1]/2)
         screen.blit(continents[displayed_continent], (0, 0))
@@ -808,7 +838,7 @@ while running:
                     posledni_hadana_zeme = kliknuto
 
         
-
+    #pygame.time.Clock().tick(10)
     # Update the screen
     pygame.display.flip()
 
