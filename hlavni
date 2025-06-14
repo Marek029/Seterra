@@ -670,11 +670,7 @@ def found_country(name):
 # Initialize pygame
 pygame.init()
 
-barva_pozadí_typ = int(input("Select your backround color mode (1,2,3 or 4)").strip())
-co = 0.5
 
-language = int(input("Select your language (1-en, 2-cz)").strip())
-language -=1
 
 velikost = [int(1000*konst_display), int(800*konst_display)] #delka obrazovky, výška obrazovky
 pomer = velikost[0] / velikost[1]
@@ -705,6 +701,20 @@ for i in range(len(continents_name)):
     continents.append(pygame.image.load(f'{pathh}{continents_name[i]}').convert_alpha()) 
     continents_prop.append(continents[i].get_width() / continents[i].get_height())
     continents[i]=scaling(continents[i], continents_prop[i], pomer, velikost)
+
+#otazky
+
+barva_pozadí_typ = int(input("Select your backround color mode (1,2,3 or 4)").strip())
+co = 0.5
+
+language = int(input("Select your language (1-en, 2-cz)").strip())
+language -=1
+
+hard_or_easy = int(input("Do you want hard or easy mode? (0-easy, 1-hard): ").strip())
+if hard_or_easy==0:
+    for i in range(len(countries_coordinates)-7):
+        countries_coordinates.pop(-1)
+        continents.pop(-1)
 
 #game begins
 
