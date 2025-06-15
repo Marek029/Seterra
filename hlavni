@@ -5,17 +5,17 @@ import time
 import math
 import random
 
-path = "C:\\Users\\marek\\Seterra\\"
-konst_display = 1
+path = "C:\\Users\\petrz\\Downloads\\"
+konst_display = 0.75
 souradky_zeme = [0,0]
 kontinent = 0
-"""
-file = 'some.mp3'
+
+file = 'hudba.mp3'
 pygame.init()
 pygame.mixer.init()
 pygame.mixer.music.load(file)
-pygame.mixer.music.play()
-"""
+pygame.mixer.music.play(loops=-1)
+
 countries_and_territories = [
     ("Afghanistan", "Afghánistán"),
     ("Albania", "Albánie"),
@@ -712,7 +712,7 @@ for i in range(len(continents_name)):
     continents[i]=scaling(continents[i], continents_prop[i], pomer, velikost)
 
 #otazky
-
+print("Hudba použitá ve hře: Mii Channel Theme (zdroj: Nintendo) — použitá pouze pro osobní účely, nekomerční.")
 barva_pozadí_typ = int(input("Select your backround color mode (1,2,3 or 4)").strip())
 co = 0.5
 
