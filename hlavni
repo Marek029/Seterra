@@ -482,49 +482,49 @@ countries_coordinates = [
 ("     Austria       ",  403, 531     )
 ],
 [# afrika
-     ("Algeria", 245, 110),
+    ("Algeria", 245, 110),
     ("Angola", 395, 553),
     ("Benin", 228, 301),
     ("Botswana", 460, 659),
     ("Burkina Faso", 190, 278),
     ("Burundi", 530, 453),
     ("Cabo Verde", 14, 203),
-    ("Cameroon", 99, 203),
-    ("Central African Republic", 788, 613),
-    ("Chad", 334, 366),
-    ("Comoros", 421, 343),
-    ("Congo (Congo-Brazzaville)", 401, 253),
-    ("Congo (Congo-Kinshasa)", 688, 543),
-    ("Djibouti", 370, 430),
-    ("Egypt", 465, 450),
-    ("Equatorial Guinea", 666, 284),
-    ("Eritrea", 514, 123),
-    ("Eswatini", 315, 399),
-    ("Ethiopia", 615, 238),
-    ("Gabon", 535, 706),
-    ("Gambia", 630, 316),
-    ("Ghana", 330, 419),
-    ("Guinea", 35, 261),
-    ("Guinea-Bissau", 186, 330),
-    ("Ivory Coast", 89, 296),
-    ("Kenya", 44, 275),
-    ("Lesotho", 138, 331),
-    ("Liberia", 618, 410),
-    ("Libya", 504, 743),
-    ("Madagascar", 96, 341),
-    ("Malawi", 393, 121),
-    ("Mali", 700, 643),
-    ("Mauritania", 573, 561),
-    ("Mauritius", 180, 216),
-    ("Morocco", 771, 488),
-    ("Mozambique", 150, 58),
-    ("Namibia", 575, 618),
-    ("Niger", 385, 659),
-    ("Nigeria", 299, 225),
-    ("Rwanda", 290, 315),
-    ("São Tomé and Príncipe", 531, 436),
-    ("Senegal", 264, 410),
-    ("Seychelles", 44, 245),
+    ("Mauritania", 99, 203),
+    ("Mauritius", 788, 613),
+    ("Cameroon", 334, 366),
+    ("Central African Republic", 421, 343),
+    ("Chad", 401, 253),
+    ("Comoros", 688, 543),
+    (" Congo (Congo-Brazzaville)", 370, 430),
+    ("Congo (Congo-Kinshasa)", 465, 450),
+    ("Djibouti", 666, 284),
+    ("Egypt", 514, 123),
+    ("Equatorial Guinea", 315, 399),
+    ("Eritrea", 615, 238),
+    ("Eswatini", 535, 706),
+    ("Ethiopia", 630, 316),
+    ("Gabon", 330, 419),
+    ("Gambia", 35, 261),
+    ("Ghana", 186, 330),
+    ("Guinea", 89, 296),
+    ("Guinea-Bissau", 44, 275),
+    ("Ivory Coast", 138, 331),
+    (" Kenya", 618, 410),
+    ("Lesotho", 504, 743),
+    ("Liberia", 96, 341),
+    ("Libya", 393, 121),
+    ("Madagascar", 700, 643),
+    ("Malawi", 573, 561),
+    ("Mali", 180, 216),
+    ("Seychelles", 771, 488),
+    ("Morocco", 150, 58),
+    ("Mosambique", 575, 618),
+    ("Namibia", 385, 659),
+    ("Niger", 299, 225),
+    ("Nigeria", 290, 315),
+    ("Rwanda", 531, 436),
+    ("São Tomé and Príncipe", 264, 410),
+    ("Senegal", 44, 245),
     ("Sierra Leone", 78, 319),
     ("Somalia", 686, 381),
     ("Somaliland", 724, 304),
@@ -778,7 +778,7 @@ while running:
     
     time_stamp = time.time()
     
-    if barva_pozadí_typ == 1:
+    if barva_pozadí_typ == 3:
         color_value1 = int(abs(((time_stamp* 7*co) % 510)-255))  # Wrap around the time value to stay within range
         color_value2 = int(abs(((time_stamp*11*co) % 510)-255))
         color_value3 = int(abs(((time_stamp*13*co) % 510)-255))
@@ -788,7 +788,7 @@ while running:
         color_value2 = int(abs(((time_stamp*10*co) % 510)-255))
         color_value3 = int(abs(((time_stamp*10*co) % 510)-255))
 
-    if barva_pozadí_typ == 3:
+    if barva_pozadí_typ == 1:
         color_value1 = 245 
         color_value2 = 118
         color_value3 = 52
