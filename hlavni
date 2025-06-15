@@ -781,7 +781,7 @@ while running:
 
             mys_pos = pygame.mouse.get_pos()
             mys = True
-            print(mys_pos)
+            #print(mys_pos)
             
         else: mys = False
 
