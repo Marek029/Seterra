@@ -5,8 +5,8 @@ import time
 import math
 import random
 
-path = "C:\\Users\\petrz\\Downloads\\"
-konst_display = 0.75
+path = "C:\\Users\\marek\\Seterra\\"
+konst_display = 1
 souradky_zeme = [0,0]
 kontinent = 0
 
@@ -15,6 +15,8 @@ pygame.init()
 pygame.mixer.init()
 pygame.mixer.music.load(file)
 pygame.mixer.music.play(loops=-1)
+
+font = pygame.font.Font('freesansbold.ttf', 32)
 
 countries_and_territories = [
     ("Afghanistan", "Afghánistán"),
@@ -682,11 +684,13 @@ pygame.init()
 
 
 velikost = [int(1000*konst_display), int(800*konst_display)] #delka obrazovky, výška obrazovky
+text_size = 40
+
 pomer = velikost[0] / velikost[1]
 width = velikost[0]
 height = velikost[1]
 # Set up the display
-screen = pygame.display.set_mode((velikost[0], velikost[1]))  # Screen size: 800x600
+screen = pygame.display.set_mode((velikost[0], velikost[1]+(text_size*4+10)*konst_display))  # Screen size: 800x600
 pygame.display.set_caption('Seterra ultimate challange')
 
 teckaa = pygame.image.load(f'{path}dot.png').convert_alpha()
@@ -737,7 +741,8 @@ game_state = 1
 #4 - vlajky provincií (jen u vybraných)
 #5 - města
 
-
+displayed_text=[]
+displayed_text_always=[]
 displayed_continent = 0
 mouse_cool_down = time.time()
 posledni_hadana_zeme = "idk"
@@ -757,7 +762,7 @@ while running:
             if info_is_shown == True:
                 current_country = update_cur_count(0) #aktuálně hádaná země
                 ij = found_country(current_country)
-                print(f"{texty[language][1]} {current_country} {appendings[language][ij[0]]}")
+                displayed_text_always.append(font.render(f"{texty[language][1]} {current_country} {appendings[language][ij[0]]}", True, (255, 255, 255), (0, 0, 0)))
             info_is_shown = False
             
             if game_state == 1:
@@ -837,27 +842,36 @@ while running:
         if kliknuto !=-1 and (time.time()-posledni_spravne_kliknuti)>0.5:
             
             if kliknuto == current_country:
-                print(texty[language][0])
+
+                displayed_text_always=[]
+                displayed_text=[]
+
+                displayed_text.insert(0, font.render(f"{texty[language][0]}", True, (255, 255, 255)))
                 pozastaveno = 0
                 spatne = 0
                 current_country = update_cur_count(kliknuto)
                 ij = found_country(current_country)
-                print(f"{texty[language][1]} {current_country} {appendings[language][ij[0]]}")
+                displayed_text_always.append(font.render(f"{texty[language][1]} {current_country} {appendings[language][ij[0]]}", True, (255, 255, 255), (0, 0, 0)))
                 posledni_spravne_kliknuti = time.time()
 
             elif kliknuto != posledni_hadana_zeme:
                 if pozastaveno == 0:
                     ij = found_country(kliknuto)
-                    print(f"{texty[language][2]} {kliknuto} {appendings[language][ij[0]]}")
+                    displayed_text.insert(0, font.render(f"{texty[language][2]} {kliknuto} {appendings[language][ij[0]]}", True, (255, 255, 255)))
                     spatne = spatne + 1
                     if spatne == 3:
-                        print(texty[language][3])
+                        displayed_text_always.append(font.render(f"{texty[language][3]}", True, (255, 255, 255)))
                         if kontinent < 7:
-                            print(f"{texty[language][4]} {mapy[language][kontinent]}")
+                            displayed_text_always.append(font.render(f"{texty[language][4]} {mapy[language][kontinent]}", True, (255, 255, 255)))
                         pozastaveno = 1
                     posledni_hadana_zeme = kliknuto
 
+    
+    for i in range(len(displayed_text_always)): 
+        screen.blit(displayed_text_always[i], (5,velikost[1]+i*40+5))
 
+    for i in range(len(displayed_text)): 
+        if len(displayed_text_always)+i<4: screen.blit(displayed_text[i], (5,velikost[1]+i*40+len(displayed_text_always)*40+5))
     #pygame.time.Clock().tick(10)
     # Update the screen
     pygame.display.flip()
